@@ -28,5 +28,16 @@ block-comment-tokens = { start = "/*", end = "*/" }
 indent = { tab-width = 4, unit = " " }
 auto-format = true
 
+[[language]]
+name = "java"
+language-servers = ["jdtls"]
+auto-format = true
+formatter = { command = "clang-format", args = ["--assume-filename=Main.java"] }
+
+[[language]]
+name = "rust"
+auto-format = true
+formatter = { command = "rustfmt" }
+
 # Define the formatter explicitly using clang-format
-formatter = { command = "clang-format", args = ["--assume-filename=*.cs"] }
+# formatter = { command = "clang-format", args = ["--assume-filename=*.cs"] }

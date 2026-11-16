@@ -2,23 +2,48 @@
     "layer": "top",
     "position": "top",
     "height": 36,
-    "spacing": 18,
+    "spacing": 8,
     "gtk-layer-shell": true,
 
-    "modules-left": ["niri/workspaces", "network", "memory", "cpu", "battery"],
+    "modules-left": ["niri/workspaces", "group/hardware"],
     "modules-center": ["niri/window"],
-    "modules-right": ["custom/headset_battery", "group/audio", "custom/weather", "clock#date", "clock#time", "tray", "custom/notification"],
+    "modules-right": ["group/audio", "group/day", "group/tray-notif"],
 
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+            "network",
+            "memory",
+            "cpu",
+            "battery"
+        ]
+    },
     "group/audio": {
         "orientation": "horizontal",
         "modules": [
+            "custom/headset_battery",
             "pulseaudio",
             "pulseaudio#source"
         ]
     },
+    "group/day": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/weather",
+            "clock#date",
+            "clock#time"
+        ]
+    },
+    "group/tray-notif": {
+        "orientation": "horizontal",
+        "modules": [
+            "tray",
+            "custom/notification"
+        ]
+    },
     "custom/headset_battery": {
         "exec": "~/.config/waybar/headset_battery.sh",
-        "interval": 300,
+        "interval": 30,
         "format": "{}",
         "tooltip": false
     },
@@ -27,7 +52,7 @@
         "format": "{}",
         "max-length": 100,
         "separate-outputs": true,
-        "rewrite": { // show 'Desktop' when there is no active window
+        "rewrite": {
             "^$": "Desktop"
         }
     },
@@ -104,7 +129,7 @@
     },
     "custom/notification": {
     "tooltip": false,
-    "format": "{icon}  ",
+    "format": "{icon} ",
     "format-icons": {
         "notification": "<span foreground='red'><sup></sup></span>",
         "none": "",

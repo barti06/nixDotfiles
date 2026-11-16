@@ -165,10 +165,6 @@ in
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "ventoy-1.1.10"
-  ];
-
   #virtualisation.virtualbox = {
   #    host = {
   #        enable = true;
@@ -180,7 +176,13 @@ in
   #    };
   #};
 
+  services.xserver.enable = true;
+
+  services.xserver.displayManager.startx.enable = true;
+  services.displayManager.sddm.enable = lib.mkForce false;
+
   environment.systemPackages = with pkgs; [
+    xorg.xinit
     kdePackages.dolphin
     gdb
     lldb_18
@@ -214,6 +216,9 @@ in
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+  };
+  environment.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
   nix.settings.experimental-features = [
     "nix-command"

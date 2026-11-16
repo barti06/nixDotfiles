@@ -8,6 +8,8 @@ AllowShortIfStatementsOnASingleLine: false
 AllowShortEnumsOnASingleLine: false
 ColumnLimit: 90
 PointerAlignment: Left
+DerivePointerAlignment: false
+BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterControlStatement: Never

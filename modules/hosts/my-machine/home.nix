@@ -7,6 +7,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "hm-backup";
+    overwriteBackup = true;
     extraSpecialArgs = { inherit inputs; };
     users.barti =
       { config, pkgs, ... }:
@@ -34,7 +35,6 @@
           libreoffice
           mpv
           yt-dlg
-          ventoy-full
           qbittorrent
           rofi
           waybar
@@ -51,6 +51,8 @@
           tree-sitter
           nodejs
           lua5_1
+          brave-origin
+          glow
         ];
 
         services.swaync = {
@@ -58,6 +60,7 @@
         };
 
         home.pointerCursor = {
+          enable = true;
           gtk.enable = true;
           package = pkgs.apple-cursor;
           name = "macOS";
@@ -66,6 +69,7 @@
 
         gtk = {
           enable = true;
+          gtk2.force = true;
           iconTheme = {
             name = "Papirus-Dark";
             package = pkgs.papirus-icon-theme;

@@ -1,108 +1,265 @@
+/* =============================================================================
+ * SwayNC Style - Tokyo Night Theme
+ * ============================================================================= */
+
+/* Tokyo Night Color Palette */
+@define-color bg_dark       #16161e;
+@define-color bg            #1a1b26;
+@define-color bg_highlight  #292e42;
+@define-color bg_surface    rgba(36, 40, 59, 0.65);
+@define-color bg_hover      rgba(65, 72, 104, 0.65);
+
+@define-color fg            #c0caf5;
+@define-color fg_dark       #a9b1d6;
+@define-color comment       #565f89;
+
+@define-color blue          #7aa2f7;
+@define-color cyan          #7dcfff;
+@define-color teal          #73daca;
+@define-color green         #9ece6a;
+@define-color yellow        #e0af68;
+@define-color orange        #ff9e64;
+@define-color magenta       #bb9af7;
+@define-color red           #f7768e;
+
 * {
-    font-family: "Iosevka Nerd Font", sans-serif;
+    font-family: "Maple Mono NF", "Iosevka Nerd Font Proportional", sans-serif;
+    color: @fg;
 }
 
-/* main panel */
+/* =============================================================================
+ * Control Center (Main Panel)
+ * ============================================================================= */
 .control-center {
-    background: rgba(0, 0, 0, 0.85);
-    border: 2px solid #3569be;
+    background: rgba(22, 22, 30, 0.85);
+    border: 2px solid rgba(122, 162, 247, 0.45);
     border-radius: 16px;
-    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    padding: 8px;
 }
 
-/* mpris widget (media center) */
-.widget-mpris {
+/* =============================================================================
+ * Header / Title Widget
+ * ============================================================================= */
+.widget-title {
     background: transparent;
-    padding: 16px 16px 8px 16px;
-    border-bottom: 1px solid rgba(53, 105, 190, 0.3);
+    padding: 12px 14px 6px 14px;
+    font-size: 15px;
+    font-weight: bold;
+    color: @fg;
+}
+
+.widget-title > button {
+    background: rgba(247, 118, 142, 0.15);
+    border: 1px solid rgba(247, 118, 142, 0.3);
+    border-radius: 8px;
+    padding: 4px 10px;
+    color: @red;
+    font-size: 13px;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.widget-title > button:hover {
+    background: rgba(247, 118, 142, 0.35);
+    border-color: @red;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(247, 118, 142, 0.4);
+}
+
+/* =============================================================================
+ * Do Not Disturb (DND) Widget
+ * ============================================================================= */
+.widget-dnd {
+    background: transparent;
+    padding: 6px 14px 12px 14px;
+    font-size: 14px;
+    color: @fg_dark;
+}
+
+.widget-dnd > switch {
+    background: rgba(41, 46, 66, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.widget-dnd > switch:checked {
+    background: @blue;
+    border-color: @blue;
+    box-shadow: 0 0 8px rgba(122, 162, 247, 0.5);
+}
+
+.widget-dnd > switch slider {
+    background: @fg;
+    border-radius: 12px;
+}
+
+.widget-dnd > switch:checked slider {
+    background: @bg_dark;
+}
+
+/* =============================================================================
+ * Media Player (MPRIS) Widget
+ * ============================================================================= */
+.widget-mpris {
+    background: @bg_surface;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 6px 12px 12px 12px;
+}
+
+.widget-mpris:hover {
+    border-color: rgba(122, 162, 247, 0.35);
 }
 
 .widget-mpris-player {
     background: transparent;
-    padding: 8px;
+    padding: 6px;
 }
 
 .widget-mpris-title {
-    color: #ffffff;
+    color: @fg;
     font-weight: bold;
     font-size: 15px;
 }
 
 .widget-mpris-subtitle {
-    color: #a0a0a0;
+    color: @cyan;
     font-size: 13px;
 }
 
-.widget-mpris-player>box>button {
+.widget-mpris-player > box > button {
     background: transparent;
-    color: #ffffff;
-    border: none;
-    box-shadow: none;
-}
-
-.widget-mpris-player>box>button:hover {
-    background: rgba(53, 105, 190, 0.4);
+    color: @fg;
+    border: 1px solid transparent;
     border-radius: 8px;
-}
-
-/* clear widget */
-.widget-title {
-    background: transparent;
-    color: #ffffff;
-    padding: 16px 16px 8px 16px;
-    font-size: 14px;
-}
-
-.widget-title>button {
-    background: transparent;
-    color: #ffffff;
-    border: none;
+    padding: 4px 8px;
+    margin: 2px;
     box-shadow: none;
+    transition: all 0.2s ease-in-out;
 }
 
-.widget-title>button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-}
-
-/* dnd widget */
-.widget-dnd {
-    background: transparent;
+.widget-mpris-player > box > button:hover {
+    background: rgba(122, 162, 247, 0.25);
+    border-color: @blue;
     color: #ffffff;
-    padding: 0 16px 16px 16px;
-    font-size: 14px;
+    box-shadow: 0 0 8px rgba(122, 162, 247, 0.4);
 }
 
-.widget-dnd>switch {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-}
-
-.widget-dnd>switch:checked {
-    background: #3569be;
-    /* Dark blue active state */
-}
-
-/* no notifications case */
-.blank-window {
-    background: transparent;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* notification style */
+/* =============================================================================
+ * Notification Cards (Control Center & Floating Popups)
+ * ============================================================================= */
 .notification {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid #3569be;
-    border-radius: 10px;
-    margin: 0 12px 10px 12px;
+    background: @bg_surface;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin: 6px 12px;
     padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease-in-out;
+}
+
+.notification:hover {
+    background: @bg_hover;
+    border-color: rgba(122, 162, 247, 0.4);
+}
+
+.notification.low {
+    border-left: 4px solid @teal;
+}
+
+.notification.normal {
+    border-left: 4px solid @blue;
+}
+
+.notification.critical {
+    border-left: 4px solid @red;
+    background: rgba(247, 118, 142, 0.15);
 }
 
 .notification .title {
     font-weight: bold;
-    color: #ffffff;
+    font-size: 14px;
+    color: @blue;
 }
 
 .notification .body {
-    color: #cccccc;
+    color: @fg_dark;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.notification .time {
+    color: @comment;
+    font-size: 11px;
+}
+
+/* Close button inside notification */
+.notification button.close-button {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: @comment;
+    padding: 2px 4px;
+    transition: all 0.2s ease;
+}
+
+.notification button.close-button:hover {
+    background: rgba(247, 118, 142, 0.25);
+    border-color: @red;
+    color: @red;
+}
+
+/* Action buttons inside notification */
+.notification-action {
+    background: rgba(41, 46, 66, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: @fg;
+    margin: 4px;
+    padding: 4px 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.notification-action:hover {
+    background: rgba(122, 162, 247, 0.25);
+    border-color: @blue;
+    color: #ffffff;
+}
+
+/* Floating on-screen notification popups */
+.floating-notifications.background .notification {
+    background: rgba(26, 27, 38, 0.88);
+    border: 1px solid rgba(122, 162, 247, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+/* =============================================================================
+ * Blank / Empty State
+ * ============================================================================= */
+.blank-window {
+    background: transparent;
+    color: @comment;
+    font-size: 15px;
+    padding: 20px;
+}
+
+/* =============================================================================
+ * Scrollbar
+ * ============================================================================= */
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: rgba(65, 72, 104, 0.5);
+    border-radius: 8px;
+    min-width: 6px;
+    min-height: 6px;
+}
+
+scrollbar slider:hover {
+    background: @blue;
 }

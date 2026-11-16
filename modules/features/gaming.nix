@@ -39,5 +39,6 @@
     dxvk
     pciutils
     prismlauncher
+    xclicker
   ];
 }

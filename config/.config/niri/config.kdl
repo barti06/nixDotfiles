@@ -1,6 +1,5 @@
 // startup services
 spawn-at-startup "hyprpaper"
-spawn-at-startup "hyprlock"
 spawn-at-startup "waybar"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,pkcs11"
 spawn-at-startup "easyeffects" "--gapplication-service"

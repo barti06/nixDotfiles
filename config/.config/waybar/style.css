@@ -1,16 +1,24 @@
-@define-color bg0 #010101;
-@define-color bg1 #010101;
-@define-color bg2 #090909;
+/* =============================================================================
+ * Waybar Style - Tokyo Night Theme
+ * ============================================================================= */
 
-@define-color fg0 #ffffff;
-@define-color fg1 #ffffff;
-@define-color fg2 #a0a0a0;
-@define-color fg3 #666666;
+/* Tokyo Night Color Palette */
+@define-color bg_dark       #16161e;
+@define-color bg            #1a1b26;
+@define-color bg_highlight  #292e42;
 
-@define-color accent #3569be;
+@define-color fg            #c0caf5;
+@define-color fg_dark       #a9b1d6;
+@define-color comment       #565f89;
 
-@define-color warning #d79921;
-@define-color critical #cc241d;
+@define-color blue          #7aa2f7;
+@define-color cyan          #7dcfff;
+@define-color teal          #73daca;
+@define-color green         #9ece6a;
+@define-color yellow        #e0af68;
+@define-color orange        #ff9e64;
+@define-color magenta       #bb9af7;
+@define-color red           #f7768e;
 
 * {
     font-family: "Iosevka Nerd Font Proportional";
@@ -19,143 +27,374 @@
     letter-spacing: 0.02em;
 }
 
+/* Semi-transparent Waybar bar */
 window#waybar {
-    background-color: @bg0;
-    border: none;
+    background-color: rgba(22, 22, 30, 0.75);
+    border-bottom: 2px solid rgba(41, 46, 66, 0.5);
+    color: @fg;
 }
 
+/* =============================================================================
+ * Island / Pill Containers
+ * ============================================================================= */
+#workspaces,
+#hardware,
+#group-hardware,
 #window,
-#workspaces,
-#clock.time,
-#clock.date,
 #audio,
-#cpu,
-#memory,
-#custom-weather,
-#workspaces,
-#tray,
-#network,
-#battery,
-#custom-notification,
-#custom-headset_battery {
-    padding: 0;
-    margin: 5px 3px;
-    border-radius: 20px;
-    background-color: transparent;
-    border: transparent;
-    transition: all 0.2s ease;
-    color: @fg0;
+#group-audio,
+#day,
+#group-day,
+#tray-notif,
+#group-tray-notif {
+    background-color: rgba(36, 40, 59, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 2px 4px;
+    margin: 4px 2px;
+    transition: all 0.25s ease-in-out;
 }
 
-#window:hover,
 #workspaces:hover,
-#clock.time:hover,
-#clock.date:hover,
+#hardware:hover,
+#group-hardware:hover,
+#window:hover,
 #audio:hover,
-#cpu:hover,
-#memory:hover,
-#custom-weather:hover,
-#network:hover,
-#battery:hover,
-#custom-notification:hover
-#custom-headset_battery:hover {
+#group-audio:hover,
+#day:hover,
+#group-day:hover,
+#tray-notif:hover,
+#group-tray-notif:hover {
+    border-color: rgba(122, 162, 247, 0.35);
+}
+
+/* =============================================================================
+ * Workspaces (Niri)
+ * ============================================================================= */
+#workspaces button {
+    padding: 2px 8px;
+    margin: 1px 2px;
+    border-radius: 7px;
+    color: @fg_dark;
     background-color: transparent;
-    border-color: transparent;
-    color: @fg1;
-}
-
-#window { color: @fg1; }
-#window:hover { color: @fg1; }
-
-/* date and time */
-#clock.time {
-    color: @fg1;
+    border: 1px solid transparent;
+    box-shadow: none;
+    text-shadow: none;
     font-weight: 700;
-    letter-spacing: 0.05em;
-}
-#clock.date {
-    color: @fg1;
-    font-weight: 700;
+    transition: all 0.2s ease-in-out;
 }
 
-/* cpu and memory */
-#cpu { color: @fg1; }
-#cpu.warning  { color: @warning; }
-#cpu.critical { color: @critical; }
-#memory { color: @fg1; }
+#workspaces button:hover {
+    background-color: rgba(122, 162, 247, 0.25);
+    color: @blue;
+    border-color: rgba(122, 162, 247, 0.4);
+}
 
-/* battery */
-#battery { color: @fg1; }
-#battery.warning:not(.charging)  { color: @warning; }
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: @blue;
+    color: @bg_dark;
+    border-color: @blue;
+    box-shadow: 0 0 8px rgba(122, 162, 247, 0.45);
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+    color: #ffffff;
+    border-color: @red;
+}
+
+/* =============================================================================
+ * Center: Active Window
+ * ============================================================================= */
+#window {
+    color: @fg;
+    font-weight: 600;
+    padding: 2px 16px;
+    border-color: rgba(122, 162, 247, 0.15);
+}
+
+#window:hover {
+    background-color: rgba(65, 72, 104, 0.6);
+    border-color: @blue;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(122, 162, 247, 0.35);
+}
+
+/* Hide window pill when no window is focused/present on the workspace */
+window#waybar.empty #window {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* =============================================================================
+ * Inner Button Modules (Inside Hardware & Right-Side Pills)
+ * ============================================================================= */
+#network,
+#memory,
+#cpu,
+#battery,
+#custom-headset_battery,
+#pulseaudio,
+#pulseaudio.source,
+#pulseaudio-source,
+#custom-weather,
+#clock.date,
+#clock.time,
+#tray,
+#custom-notification {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 2px 8px;
+    margin: 1px 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* =============================================================================
+ * Left Hardware Modules
+ * ============================================================================= */
+
+/* Network */
+#network {
+    color: @teal;
+}
+
+#network:hover {
+    background-color: rgba(115, 218, 202, 0.25);
+    border-color: @teal;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(115, 218, 202, 0.4);
+}
+
+#network.disconnected {
+    color: @comment;
+}
+
+#network.disconnected:hover {
+    background-color: rgba(86, 95, 137, 0.25);
+    border-color: @comment;
+    color: @fg;
+}
+
+/* Memory */
+#memory {
+    color: @magenta;
+}
+
+#memory:hover {
+    background-color: rgba(187, 154, 247, 0.25);
+    border-color: @magenta;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(187, 154, 247, 0.4);
+}
+
+/* CPU */
+#cpu {
+    color: @cyan;
+}
+
+#cpu:hover {
+    background-color: rgba(125, 207, 255, 0.25);
+    border-color: @cyan;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(125, 207, 255, 0.4);
+}
+
+#cpu.warning {
+    color: @yellow;
+}
+
+#cpu.warning:hover {
+    background-color: rgba(224, 175, 104, 0.25);
+    border-color: @yellow;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(224, 175, 104, 0.4);
+}
+
+#cpu.critical {
+    color: @red;
+}
+
+#cpu.critical:hover {
+    background-color: rgba(247, 118, 142, 0.3);
+    border-color: @red;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(247, 118, 142, 0.4);
+}
+
+/* Battery */
+#battery {
+    color: @green;
+}
+
+#battery:hover {
+    background-color: rgba(158, 206, 106, 0.25);
+    border-color: @green;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(158, 206, 106, 0.4);
+}
+
+#battery.charging {
+    color: @teal;
+}
+
+#battery.charging:hover {
+    background-color: rgba(115, 218, 202, 0.25);
+    border-color: @teal;
+    color: #ffffff;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+
+#battery.warning:not(.charging):hover {
+    background-color: rgba(224, 175, 104, 0.25);
+    border-color: @yellow;
+    color: #ffffff;
+}
+
 #battery.critical:not(.charging) {
-    color: @critical;
+    color: @red;
     animation: blink 1.2s ease infinite;
 }
+
+#battery.critical:not(.charging):hover {
+    background-color: rgba(247, 118, 142, 0.3);
+    border-color: @red;
+    color: #ffffff;
+}
+
 @keyframes blink {
     0%   { opacity: 1; }
     50%  { opacity: 0.4; }
     100% { opacity: 1; }
 }
 
-/* network */
-#network              { color: @fg1; }
-#network.disconnected { color: @fg3; }
+/* =============================================================================
+ * Right Side Modules
+ * ============================================================================= */
 
-/* audio */
-#pulseaudio, 
-#pulseaudio.source {
-    background-color: transparent;
-    border: none;
-    margin: 0;
-    padding: 0 10px;
-    color: @fg1
+/* Headset Battery */
+#custom-headset_battery {
+    color: @cyan;
 }
+
+#custom-headset_battery:hover {
+    background-color: rgba(125, 207, 255, 0.25);
+    border-color: @cyan;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(125, 207, 255, 0.4);
+}
+
+/* Audio (Output & Input) */
+#pulseaudio,
+#pulseaudio.source,
+#pulseaudio-source {
+    color: @fg;
+}
+
 #pulseaudio:hover,
-#pulseaudio.source:hover {
-    color: @accent;
-    background-color: transparent;
+#pulseaudio.source:hover,
+#pulseaudio-source:hover {
+    background-color: rgba(192, 202, 245, 0.2);
+    border-color: @fg;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(192, 202, 245, 0.35);
 }
 
-/* weather */
+#pulseaudio.muted,
+#pulseaudio.source.source-muted,
+#pulseaudio.source.muted,
+#pulseaudio-source.source-muted,
+#pulseaudio-source.muted {
+    color: @comment;
+}
+
+/* Weather */
 #custom-weather {
-    color: @fg1;
+    color: @yellow;
 }
 
-/* workspaces */
-#workspaces {
-    padding: 0;
+#custom-weather:hover {
+    background-color: rgba(224, 175, 104, 0.25);
+    border-color: @yellow;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(224, 175, 104, 0.4);
 }
-#workspaces button {
-    padding: 0 5px;
-    color: @fg1;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    text-shadow: none;
+
+/* Date and Time */
+#clock.date {
+    color: @magenta;
     font-weight: 700;
 }
-#workspaces button.active {
-    color: @accent;
-    background: transparent;
-}
-#workspaces button:hover {
-    color: @accent;
-    background: transparent;
+
+#clock.date:hover {
+    background-color: rgba(187, 154, 247, 0.25);
+    border-color: @magenta;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(187, 154, 247, 0.4);
 }
 
-/* tray */
+#clock.time {
+    color: @blue;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+#clock.time:hover {
+    background-color: rgba(122, 162, 247, 0.25);
+    border-color: @blue;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(122, 162, 247, 0.4);
+}
+
+/* Tray (Processes) */
+#tray {
+    padding: 2px 6px;
+}
+
+#tray:hover {
+    background-color: rgba(65, 72, 104, 0.6);
+    border-color: @blue;
+}
+
 #tray > .passive {
     -gtk-icon-effect: dim;
 }
+
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: @critical;
+    background-color: @red;
 }
 
-/* notification center */
+/* Notification Center */
 #custom-notification {
-    color: @fg1;
+    color: @yellow;
+    padding: 2px 8px;
 }
+
 #custom-notification:hover {
-    color: @accent;
+    background-color: rgba(224, 175, 104, 0.25);
+    border-color: @yellow;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(224, 175, 104, 0.4);
+}
+
+/* =============================================================================
+ * Tooltips
+ * ============================================================================= */
+tooltip {
+    background: rgba(26, 27, 38, 0.95);
+    border: 1px solid rgba(122, 162, 247, 0.3);
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @fg;
+    font-size: 14px;
+    padding: 4px 8px;
 }
